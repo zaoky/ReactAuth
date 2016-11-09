@@ -43,6 +43,9 @@ local.properties
 *.iml
 /android/
 
+# iOS
+/ios/
+
 # Node
 node_modules
 *.log
@@ -53,3 +56,6 @@ node_modules
 
 # Test generated files
 /ReactAndroid/src/androidTest/assets/AndroidTestBundle.js
+/_test_/
+
+**/*.js
