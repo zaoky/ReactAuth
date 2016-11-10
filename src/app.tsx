@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Header } from './Components/common/';
+import { Header } from './Components/common';
 
 const {Component} = React;
 
