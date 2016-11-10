@@ -7,6 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "firebase": "^3.6.0",
     "react": "15.3.2",
     "react-native": "0.37.0"
   },
@@ -14,6 +15,7 @@
     "preset": "jest-react-native"
   },
   "devDependencies": {
+    "@types/firebase": "^2.4.30",
     "@types/node": "^6.0.46",
     "@types/react-native": "^0.34.38",
     "babel-jest": "17.0.0",
