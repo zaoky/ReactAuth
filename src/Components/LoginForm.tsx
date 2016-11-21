@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Text, StyleSheet } from 'react-native';
-import { Buttom, Card, CardSection, Input } from './common';
+import { Buttom, Card, CardSection, Input, Spinner } from './common';
 import firebase from 'firebase';
 
 
@@ -8,24 +8,44 @@ interface ILoginFormState {
     email?: string;
     pass?: string;
     error?: string;
+    loading?: boolean;
 }
 
 export default class LoginForm extends React.Component<void, ILoginFormState> {
 
     constructor() {
         super();
-        this.state = { email: '', pass: '', error: '' };
+        this.state = { email: '', pass: '', error: '', loading: false };
     }
 
     btnLoginPress() {
-        this.setState({error: ''});
-        firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.pass).catch(
-            () => {
-                firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.pass).catch(
-                    () => {
-                        this.setState({ error: 'Authentication Failed.' });
-                    });
+        this.setState({error: '', loading: true});
+        firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.pass)
+        .then(this.onLoginSuccess.bind(this))
+            .catch(() => {
+                firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.pass)
+                .then(this.onLoginSuccess.bind(this))
+                .catch(this.onLoginFail.bind(this));
             });
+    }
+
+    onLoginFail(){
+         this.setState({ error: 'Authentication Failed.', loading: false });
+    }
+
+    onLoginSuccess(){
+        this.setState({ email: '', pass: '', loading: false });
+    }
+
+    renderButton(){
+        if(this.state.loading){
+            return <Spinner size="small" />
+        }
+        return(
+            <Buttom onPress={this.btnLoginPress.bind(this)} >
+                        Log in
+                  </Buttom>
+        );
     }
 
     render() {
@@ -51,9 +71,7 @@ export default class LoginForm extends React.Component<void, ILoginFormState> {
                 <Text style={[styles.errorTextStyle]} >  {this.state.error} </Text>
 
                 <CardSection>
-                    <Buttom onPress={this.btnLoginPress.bind(this)} >
-                        Log in
-                  </Buttom>
+                    {this.renderButton()}
                 </CardSection>
             </Card>
         );

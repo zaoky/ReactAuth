@@ -1,8 +1,22 @@
 import * as React from 'react';
-import { View } from 'react-native';
+import { View, ActivityIndicator, StyleSheet } from 'react-native';
 
-export const Spinner: React.StatelessComponent<void> = () => {
-    return(
-        <View></View>
+interface ISpinner{
+    size?: number | "small" | "large";
+}
+
+export const Spinner: React.StatelessComponent<ISpinner> = (props) => {
+    return (
+        <View style={[styles.spinnerStyle]} >
+            <ActivityIndicator size={ props.size || 'large' } />
+        </View>
     );
 }
+
+const styles = StyleSheet.create({
+    spinnerStyle:{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
+});
