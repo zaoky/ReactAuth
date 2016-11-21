@@ -1,12 +1,19 @@
 import * as React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Header } from './Components/common';
+import { Header, Spinner, Button, CardSection } from './Components/common';
 import firebase from 'firebase';
 import LoginForm from './Components/LoginForm';
 
 const {Component} = React;
 
-export default class auth extends Component<void, void> {
+export default class auth extends Component<any, any> {
+  /**
+   *
+   */
+  constructor(props: any) {
+    super(props);
+    this.state = { logggedIn: null };
+  }
 
   componentWillMount() {
     firebase.initializeApp({
@@ -16,13 +23,35 @@ export default class auth extends Component<void, void> {
       storageBucket: 'react-auth-fd14e.appspot.com',
       messagingSenderId: '565149477811'
     });
+    firebase.auth().onAuthStateChanged((user: any) => {
+      if (user) {
+        this.setState({ loggedIn: true });
+      } else {
+        this.setState({ loggedIn: false });
+      }
+    });
+  }
+
+  renderContent() {
+    switch (this.state.loggedIn) {
+      case true:
+        return (
+          <CardSection>
+            <Button> Log Out </Button>
+          </CardSection>
+        );
+      case false:
+        return <LoginForm />;
+      default:
+        return <Spinner size="large" />
+    }
   }
 
   render() {
     return (
       <View>
         <Header headerText='Authentication' />
-        <LoginForm />
+        {this.renderContent()}
       </View>
     );
   }

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Text, StyleSheet } from 'react-native';
-import { Buttom, Card, CardSection, Input, Spinner } from './common';
+import { Button, Card, CardSection, Input, Spinner } from './common';
 import firebase from 'firebase';
 
 
@@ -42,9 +42,9 @@ export default class LoginForm extends React.Component<void, ILoginFormState> {
             return <Spinner size="small" />
         }
         return(
-            <Buttom onPress={this.btnLoginPress.bind(this)} >
+            <Button onPress={this.btnLoginPress.bind(this)} >
                         Log in
-                  </Buttom>
+                  </Button>
         );
     }
 

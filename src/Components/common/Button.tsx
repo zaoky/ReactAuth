@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const Buttom: React.StatelessComponent<any> = (props) => {
+const Button: React.StatelessComponent<any> = (props) => {
     return (
         <TouchableOpacity onPress={props.onPress} style={[styles.buttomStyle]} >
             <Text style={[styles.textStyle]} > {props.children}</Text>
@@ -30,4 +30,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export { Buttom };
+export { Button };
