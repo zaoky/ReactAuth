@@ -37,7 +37,7 @@ export default class auth extends Component<any, any> {
       case true:
         return (
           <CardSection>
-            <Button> Log Out </Button>
+            <Button OnPress={() => firebase.auth().signOut()} > Log Out </Button>
           </CardSection>
         );
       case false:
